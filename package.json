@@ -4,7 +4,12 @@
   "description": "Mass shooting data visualization",
   "main": "webpack.config.js",
   "dependencies": {
+    "babel-core": "^6.9.1",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.2.4",
+    "babel-runtime": "^6.9.2",
     "d3": "^3.5.17",
+    "eslint": "^2.12.0",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
