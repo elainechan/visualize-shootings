@@ -5,7 +5,7 @@ module.exports = {
 
 	devtool: 'source-map',
 	
-	entry: ['babel-polyfill', './app/js/app.jsx'],
+	entry: ['babel-polyfill', './app/shootings.js'],
 	
 	output: {
 		path: path.resolve(__dirname, 'public'),
