@@ -3,20 +3,11 @@ var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    // console errors map to correct file and line number
-    devtool: 'eval-source-map',
     // app entry point
-    entry: [
-        // refresh browser on none HMR updates
-        'webpack-dev-server/client?http://localhost:3000',
-        // save code -> gets injected into page without refresh
-        'webpack/hot/dev-server',
-        // current app
-        './app/index.js'
-    ],
-    // where to dump bundled file
+    entry: path.resolve(__dirname, 'app', 'index.js'),
+
     output: {
-        path: path.resolve(__dirname, 'public'),
+        path: __dirname,
         publicPath: '/',
         filename: 'bundle.js'
     },
@@ -35,7 +26,7 @@ module.exports = {
                 }
             },
 
-           // JSON loader
+            // JSON loader
             {
                 test: /\.json$/,
                 exclude: /(node_modules|bower_components)/,
@@ -44,7 +35,7 @@ module.exports = {
             // CSS Loader
             {
                 test: /\.css$/,
-                // load css files
+                // load css file into it's own file
                 loader: ExtractTextPlugin.extract("style-loader", "css-loader")
             },
         ]
@@ -57,7 +48,21 @@ module.exports = {
     plugins: [
         // Extract CSS files
         new ExtractTextPlugin("style.css"),
-        // Hot module replacement
-        new webpack.HotModuleReplacementPlugin()
+        // Avoid duplicated stuff
+        new webpack.optimize.DedupePlugin(),
+        // Optimise occurence order
+        new webpack.optimize.OccurenceOrderPlugin(),
+        // only for production
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        // minimise output chunks of scripts/css
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
+            }
+        })
     ]
 };

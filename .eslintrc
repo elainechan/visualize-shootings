@@ -26,7 +26,7 @@
     "no-shadow": [0],
     "no-unused-vars": [1],
   },
-   "parserOptions": {
+  "parserOptions": {
     "sourceType": "module"
    }
 }
