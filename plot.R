@@ -2,6 +2,10 @@ library(plotly)
 library(dplyr)
 library(lubridate)
 
+# Todo geo data:
+# before `accumulate_by`: 
+# use google map API to get lat long for each address
+
 accumulate_by <- function(dat, var) {
     var <- lazyeval::f_eval(var, dat)
     levels <- plotly:::getLevels(var)
@@ -17,8 +21,3 @@ testdata <- fullset %>%
     accumulate_by(~Incident.Date)
 plot <- ggplot(testdata, aes(date, X..Injured)) + 
     geom_line(aes(group = State, ids = State, frame = frame))
-
-# Geo data:
-# before `accumulate_by`: 
-# use google map API to get lat long for each address
-
