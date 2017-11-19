@@ -6,7 +6,7 @@ library(lubridate)
 # before `accumulate_by`: 
 # use google map API to get lat long for each address
 
-accumulate_by <- function(dat, var) {
+accumulate_by <- function(dat, var) { # What's going on in this function??
     var <- lazyeval::f_eval(var, dat)
     levels <- plotly:::getLevels(var)
     dats <- lapply(seq_along(levels), function(x) {
