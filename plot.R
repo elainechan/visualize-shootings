@@ -15,7 +15,7 @@ accumulate_by <- function(dat, var) { # What's going on in this function??
     dplyr::bind_rows(dats)
 }
 
-fullset <- read.table('shootings2013to2017.csv', header = TRUE, sep = ',')
+fullset <- read.table('shootings2016to2017.csv', header = TRUE, sep = ',')
 testdata <- fullset %>%
     mutate(date = mdy(Incident.Date)) %>%
     accumulate_by(~Incident.Date)
