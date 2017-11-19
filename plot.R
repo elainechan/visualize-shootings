@@ -17,7 +17,8 @@ accumulate_by <- function(dat, var) { # What's going on in this function??
 
 fullset <- read.table('shootings2013to2017.csv', header = TRUE, sep = ',')
 testdata <- fullset %>%
-    mutate(date = mdy(Incident.Date))
+    mutate(date = mdy(Incident.Date)) %>%
     accumulate_by(~Incident.Date)
-plot <- ggplot(testdata, aes(date, X..Injured)) + 
+plot <- ggplot(testdata, aes(date, X..Killed)) + 
     geom_line(aes(group = State, ids = State, frame = frame))
+ggplotly(plot)
