@@ -3,18 +3,56 @@
 // choropleth representing number killed in each state in 2016-2017
 
 // file with code:state kv pair
-var source = "https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv";
+var codeSource = "https://raw.githubusercontent.com/plotly/datasets/master/2011_us_ag_exports.csv";
+
+var dataSource = "./shootings2016to2017.csv";
+
+var dataset = d3.csv(dataSource, (data) => {
+    return data;
+});
+
+d3.select('body')
+    .append(dataset.map(data =>{
+        
+    }));
+
+console.log(dataset);
+
+// groupData = [stateCodes, dataset];
 
 var stateCodes = {};
+/*
+dataset.forEach(function(data) {
+    var result = stateCodes.filter(function(entry) {
+        return stateCodes.state === dataset.state;
+    });
+    delete dataset.state;
+    dataset.state = (result[0] !== undefined) ? result[0].name : null;
+});
+console.log(dataset);
+*/
 
-d3.csv(source, data => {
+d3.csv(codeSource, data => {
     data.map(d => {
-        stateCodes[d["state"]] = d["code"];
+        stateCodes[d["state"].trim()] = d["code"];
         return stateCodes;   
     });
 });
 
-console.log(stateCodes);
+/*
+d3.csv(source, (err, rows) => {
+    function unpack(rows, key) {
+        return rows.map((row => { return row[key]; });
+    }
+
+    var data = [{
+        type : 'choropleth',
+        locations: unpack(rows, 'code'),
+        z: unpack(rows, )
+    }];
+    return 0;
+});
+*/
 
 /*
 // get "State" from each incident
