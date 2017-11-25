@@ -19,13 +19,13 @@ d3.csv(dataSource, (error, data) => {
 // display dataset on browser
 var displayData;
 
-d3.select('body')
+d3.select('main')
     .append(`p`)
-    .html(`Hello world`);
+    .text(`Hello world`);
 
 // groupData = [stateCodes, dataset];
 
-var stateCodes = {};
+
 /*
 // match state codes with states by lookup
 dataset.forEach(function(data) {
@@ -40,10 +40,11 @@ console.log(dataset);
 
 // create lookup table
 d3.csv(codeSource, data => {
-    data.map(d => {
+    var stateCodes = {};
+    data.map((d, i) => {
         stateCodes[d["state"].trim()] = d["code"];
-        return stateCodes;   
     });
+    console.log(stateCodes);
 });
 
 /* 
