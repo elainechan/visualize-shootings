@@ -7,21 +7,27 @@ var codeSource = "https://raw.githubusercontent.com/plotly/datasets/master/2011_
 
 var dataSource = "./shootings2016to2017.csv";
 
-var dataset = d3.csv(dataSource, (data) => {
-    return data;
-});
+d3.csv(dataSource, (error, data) => {
+    if(error) throw error;
+    data.forEach(d => {
+        d.Killed = +d.Killed;
+        d.Injured = +d.Injured;
+    });
+    console.log(data);
+}); 
+
+// display dataset on browser
+var displayData;
 
 d3.select('body')
-    .append(dataset.map(data =>{
-        
-    }));
-
-console.log(dataset);
+    .append(`p`)
+    .html(`Hello world`);
 
 // groupData = [stateCodes, dataset];
 
 var stateCodes = {};
 /*
+// match state codes with states by lookup
 dataset.forEach(function(data) {
     var result = stateCodes.filter(function(entry) {
         return stateCodes.state === dataset.state;
@@ -32,6 +38,7 @@ dataset.forEach(function(data) {
 console.log(dataset);
 */
 
+// create lookup table
 d3.csv(codeSource, data => {
     data.map(d => {
         stateCodes[d["state"].trim()] = d["code"];
@@ -39,7 +46,8 @@ d3.csv(codeSource, data => {
     });
 });
 
-/*
+/* 
+// render choropleth
 d3.csv(source, (err, rows) => {
     function unpack(rows, key) {
         return rows.map((row => { return row[key]; });
